@@ -1,5 +1,5 @@
 .env
 .venv
-_pycache_/*
-/pages/_pycache_/*
+__pycache__/*
+./pages/__pycache__/*
 
