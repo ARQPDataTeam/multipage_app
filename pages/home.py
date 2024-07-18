@@ -1,4 +1,5 @@
 from dash import html, register_page  #, callback # If you need callbacks, import it here.
+from PIL import Image
 
 register_page(
     __name__,
@@ -14,6 +15,43 @@ def layout():
             [
                 "Home Page"
             ]
-        )
-    ])
+            ),
+        html.Div(html.H4("""Welcome to the Data Team SWAPIT 
+                            test data display dashboard home page.  
+                            Below are the available data sets 
+                            that can be visualized by following
+                            the links above."""
+                        )
+                ),
+        html.Div(className='gap',style={'height':'10px'}),
+        html.Div([
+            html.Div(children="""CRUISER CSAT wind and virtual temperature data""",className="box1",
+                        style={
+                        'backgroundColor':'aqua',
+                        'color':'black',
+                        'height':'100px',
+                        'margin-left':'10px',
+                        'width':'45%',
+                        'text-align':'center',
+                        'display':'inline-block'
+                        }
+                    ),
+            html.Img(src='assets/csat.png', alt='CSAT Plot Capture'),
+                ]),
+        html.Div(className='gap',style={'height':'10px'}),
+        html.Div([
+            html.Div(children="""CRUISER G2401 (Picarro) trace gas data""",className="box1",
+                        style={
+                        'backgroundColor':'aqua',
+                        'color':'black',
+                        'height':'100px',
+                        'margin-left':'10px',
+                        'width':'45%',
+                        'text-align':'center',
+                        'display':'inline-block'
+                        }
+                    ),
+            html.Img(src='assets/g2401.png', alt='Picarro Plot Capture'),
+                ]),
+            ])
     return layout
