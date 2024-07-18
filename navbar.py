@@ -6,6 +6,10 @@ def create_navbar():
     navbar = dbc.NavbarSimple(
         children=[
             dbc.NavItem(
+                dbc.NavLink("Map", active=True, href="/map", target="_blank")
+                ),
+
+            dbc.NavItem(
                 dbc.NavLink("CSAT Display", active=True, href="/csat", target="_blank")
                 ),
 
