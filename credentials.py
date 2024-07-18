@@ -25,7 +25,7 @@ def sql_engine_string_generator(datahub_host, datahub_db, datahub_user, datahub_
     except Exception as e:
         # declare FSDH keys exception
         error_occur = True
-        print(f"An error occurred: {e}")
+        # print(f"An error occurred: {e}")
 
         # load the .env file using the dotenv module remove this when running a powershell script to confirue system environment vars
         load_dotenv() # default is relative local directory 

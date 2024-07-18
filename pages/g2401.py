@@ -14,7 +14,7 @@ from azure.keyvault.secrets import SecretClient
 import os
 from dotenv import load_dotenv 
 
-from pages.credentials import sql_engine_string_generator
+from credentials import sql_engine_string_generator
 
 # register this as a page in the app
 dash.register_page(__name__)

@@ -13,8 +13,11 @@ from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 import os
 from dotenv import load_dotenv 
+import dash_leaflet as dl
+import dash_leaflet.express as dlx
+from credentials import sql_engine_string_generator
 
-from pages.credentials import sql_engine_string_generator
+print ('plotting map')
 
 # register this as a page in the app
 dash.register_page(__name__)
@@ -29,7 +32,33 @@ sql_query="""
 select siteid, description, latitude, longitude, groundelevation from stations where projectid = 'SWAPIT' ;
 """
 # create the dataframe from the sql query
-stations_df=pd.read_sql_query(sql_query, con=sql_engine)
+sites_df=pd.read_sql_query(sql_query, con=sql_engine)
+sites_df.columns=['siteid', 'sitename', 'lat', 'lon', 'alt']
+sites_df.set_index('siteid', inplace=True)
 
-print (stations_df)
+
+sites_df.drop('CRU', axis=0, inplace=True)
+
+sites_df['description'] = sites_df.index + ' ' + sites_df['sitename']
+
+# create the geojson data from the dataframe
+sites_dict = sites_df.to_dict(orient='records')
+print (sites_dict)
+sites_geojson = dlx.dicts_to_geojson([{**site, **dict(tooltip=site['description'])} for site in sites_dict])
+# print (sites_geojson)
+
+layout = dl.Map(
+   [dl.TileLayer(), dl.GeoJSON(data=sites_geojson, id="geojson", zoomToBounds=True)],
+   center=[43.652,-79.383], zoom=4, style={"width": "1000px", "height": "500px"},
+)
+
+# def create_figure(sites_df):
+#     fig = px.scatter_geo(sites_df, lat='latitude', lon='longitude')
+#     return fig
+
+
+
+
+
+
 

@@ -14,7 +14,7 @@ from azure.keyvault.secrets import SecretClient
 import os
 from dotenv import load_dotenv
 
-from pages.credentials import sql_engine_string_generator
+from credentials import sql_engine_string_generator
 
 print ('plotting csat')
 
