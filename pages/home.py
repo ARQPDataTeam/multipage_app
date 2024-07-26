@@ -1,5 +1,5 @@
 from dash import html, register_page  #, callback # If you need callbacks, import it here.
-from PIL import Image
+
 
 register_page(
     __name__,

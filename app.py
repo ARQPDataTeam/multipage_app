@@ -25,6 +25,8 @@ app = dash.Dash(
     ],
     title=APP_TITLE,
     use_pages=True,  # New in Dash 2.7 - Allows us to register pages
+    # requests_pathname_prefix="/webapp-SWAPIT/",
+    # routes_pathname_prefix="/webapp-SWAPIT/"
 )
 
 # To use if you're planning on using Google Analytics
