@@ -1,11 +1,14 @@
 from dash import html, register_page  #, callback # If you need callbacks, import it here.
-from PIL import Image
+
 
 register_page(
     __name__,
     name='Home',
     top_nav=True,
-    path='/'
+    path='/',
+    requests_pathname_prefix="/webapp-SWAPIT/",
+    routes_pathname_prefix="/webapp-SWAPIT/"
+
 )
 
 

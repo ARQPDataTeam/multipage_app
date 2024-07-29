@@ -17,9 +17,20 @@ from dotenv import load_dotenv
 from credentials import sql_engine_string_generator
 
 # register this as a page in the app
-dash.register_page(__name__)
+dash.register_page(__name__,
+    requests_pathname_prefix="/webapp-SWAPIT/",
+    routes_pathname_prefix="/webapp-SWAPIT/"
+)
 
 print ('plotting g2401')
+
+# set some default date limits for the sql query
+# default_ending_date=dt.today().strftime('%Y-%m-%d') # for future instruments running currently
+default_ending_date_string='2024-03-07' # just for swapit
+default_ending_date=dt.strptime(default_ending_date_string, "%Y-%m-%d")
+# default_beginning_date=(dt.today()-dt.timedelta(days=7)).strftime('%Y-%m-%d') # for future instruments running currently
+default_beginning_date_string='2024-03-06'
+default_beginning_date=dt.strptime(default_beginning_date_string, "%Y-%m-%d")
 
 # set the sql engine string
 sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_SWAPIT_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
@@ -27,16 +38,17 @@ sql_engine=create_engine(sql_engine_string)
 
 
 # sql query
-sql_query="""
+sql_query=("""
 SET TIME ZONE 'GMT';
 SELECT DISTINCT ON (datetime) * FROM (
 	SELECT date_trunc('minute',datetime) AS datetime, co_r AS co, co2_r/1e3 AS co2, ch4_r AS ch4
 	FROM cru__g2401m_v0
 	WHERE co_r IS NOT NULL
-	AND datetime >= '2024-03-01' AND datetime < '2024-03-01 01:00:00'
+	AND datetime >= '{}' AND datetime < '{}'
 ) AS g2401_
 ORDER BY datetime;
-"""
+""").format(default_beginning_date_string,default_ending_date_string)
+
 # create the dataframe from the sql query
 g2401_output_df=pd.read_sql_query(sql_query, con=sql_engine)
 
@@ -44,9 +56,7 @@ g2401_output_df=pd.read_sql_query(sql_query, con=sql_engine)
 
 g2401_output_df.set_index('datetime', inplace=True)
 g2401_output_df.index=pd.to_datetime(g2401_output_df.index)
-beginning_date=g2401_output_df.index[0]
-ending_date=g2401_output_df.index[-1]
-today=dt.today().strftime('%Y-%m-%d')
+
 # print(beginning_date, ending_date)
 # use specs parameter in make_subplots function
 # to create secondary y-axis
@@ -89,8 +99,8 @@ layout = html.Div(children=
 
                     dcc.DatePickerRange(
                         id='my-date-picker-range',
-                        min_date_allowed=beginning_date,
-                        max_date_allowed=ending_date
+                        min_date_allowed=default_beginning_date,
+                        max_date_allowed=default_ending_date
                     ),
                     dcc.Graph(id='cru-g2401-plot',figure=create_figure(g2401_output_df)),
                     
