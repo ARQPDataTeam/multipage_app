@@ -17,7 +17,10 @@ from dotenv import load_dotenv
 from credentials import sql_engine_string_generator
 
 # register this as a page in the app
-dash.register_page(__name__)
+dash.register_page(__name__,
+    requests_pathname_prefix="/webapp-SWAPIT/",
+    routes_pathname_prefix="/webapp-SWAPIT/"
+)
 
 print ('plotting g2401')
 

@@ -19,7 +19,10 @@ from credentials import sql_engine_string_generator
 print ('plotting csat')
 
 # register this as a page in the app
-dash.register_page(__name__)
+dash.register_page(__name__,
+    requests_pathname_prefix="/webapp-SWAPIT/",
+    routes_pathname_prefix="/webapp-SWAPIT/"
+)
 
 # set the sql engine string
 sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_SWAPIT_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')

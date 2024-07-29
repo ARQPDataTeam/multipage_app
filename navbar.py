@@ -36,6 +36,7 @@ def create_navbar():
                 children=[  # Add as many menu items as you need
                     dbc.DropdownMenuItem("Home", href='/'),
                     dbc.DropdownMenuItem(divider=True),
+                    dbc.DropdownMenuItem("Map", href='/map'),
                     dbc.DropdownMenuItem("CSAT", href='/csat'),
                     dbc.DropdownMenuItem("G2401", href='/g2401'),
                 ],
