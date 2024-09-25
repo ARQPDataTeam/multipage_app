@@ -14,20 +14,9 @@ def create_navbar():
                 ),
 
             dbc.NavItem(
-                dbc.NavLink("G2401 Display", active=True, href="/g2401", target="_blank")
+                dbc.NavLink("CR3000 Display", active=True, href="/cr3000", target="_blank")
                 ),
 
-            dbc.NavItem(
-                dbc.NavLink(
-                    [
-                        html.I(className="fa-brands fa-linkedin"),  # Font Awesome Icon
-                        " "  # Text beside icon
-                    ],
-                    href="[YOUR LINKEDIN PROFILE URL]",
-                    target="_blank"
-                )
-
-            ),
             dbc.DropdownMenu(
                 nav=True,
                 in_navbar=True,
@@ -38,7 +27,7 @@ def create_navbar():
                     dbc.DropdownMenuItem(divider=True),
                     dbc.DropdownMenuItem("Map", href='/map'),
                     dbc.DropdownMenuItem("CSAT", href='/csat'),
-                    dbc.DropdownMenuItem("G2401", href='/g2401'),
+                    dbc.DropdownMenuItem("CR3000", href='/cr3000'),
                 ],
             ),
         ],

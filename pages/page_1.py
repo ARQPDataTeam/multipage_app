@@ -22,20 +22,6 @@ dash.register_page(__name__,
     routes_pathname_prefix="/webapp-SWAPIT/"
 )
 
-print ('plotting g2401')
-
-# set some default date limits for the sql query
-# default_ending_date=dt.today().strftime('%Y-%m-%d') # for future instruments running currently
-default_ending_date_string='2024-03-07' # just for swapit
-default_ending_date=dt.strptime(default_ending_date_string, "%Y-%m-%d")
-# default_beginning_date=(dt.today()-dt.timedelta(days=7)).strftime('%Y-%m-%d') # for future instruments running currently
-default_beginning_date_string='2024-03-06'
-default_beginning_date=dt.strptime(default_beginning_date_string, "%Y-%m-%d")
-
-# set the sql engine string
-sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_SWAPIT_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
-sql_engine=create_engine(sql_engine_string)
-
 
 # sql query
 sql_query=("""

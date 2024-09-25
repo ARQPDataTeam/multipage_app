@@ -3,6 +3,12 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 from navbar import create_navbar
 
+# local modules
+from credentials import sql_engine_string_generator
+from postgres_query import fig_generator
+from postgres_query import first_entry
+
+
 # Toggle the themes at [dbc.themes.LUX]
 # The full list of available themes is:
 # BOOTSTRAP, CERULEAN, COSMO, CYBORG, DARKLY, FLATLY, JOURNAL, LITERA, LUMEN,
@@ -15,7 +21,7 @@ NAVBAR = create_navbar()
 # To use Font Awesome Icons
 FA621 = "./all.css"
 APP_TITLE = "Multipage Dash App"
-
+(__name__, )
 app = dash.Dash(
     __name__,
     suppress_callback_exceptions=True,
@@ -25,31 +31,10 @@ app = dash.Dash(
     ],
     title=APP_TITLE,
     use_pages=True,  # New in Dash 2.7 - Allows us to register pages
-    # requests_pathname_prefix="/webapp-SWAPIT/",
-    # routes_pathname_prefix="/webapp-SWAPIT/"
+    requests_pathname_prefix="/webapp-SWAPIT/",
+    routes_pathname_prefix="/webapp-SWAPIT/"
 )
 
-# To use if you're planning on using Google Analytics
-app.index_string = f'''
-<!DOCTYPE html>
-<html>
-    <head>
-        {{%metas%}}
-        <title>{APP_TITLE}</title>
-        {{%favicon%}}
-        {{%css%}}
-    </head>
-    <body>
-        {{%app_entry%}}
-        <footer>
-            {{%config%}}
-            {{%scripts%}}
-            {{%renderer%}}
-        </footer>
-        
-    </body>
-</html>
-'''
 
 app.layout = dcc.Loading(  # <- Wrap App with Loading Component
     id='loading_page_content',
