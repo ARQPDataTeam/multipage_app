@@ -10,11 +10,11 @@ def create_navbar():
                 ),
 
             dbc.NavItem(
-                dbc.NavLink("CSAT Display", active=True, href="/csat", target="_blank")
+                dbc.NavLink("Ambient Temperature", active=True, href="/page_1", target="_blank")
                 ),
 
             dbc.NavItem(
-                dbc.NavLink("CR3000 Display", active=True, href="/cr3000", target="_blank")
+                dbc.NavLink("Gases", active=True, href="/page_2", target="_blank")
                 ),
 
             dbc.DropdownMenu(
@@ -26,8 +26,8 @@ def create_navbar():
                     dbc.DropdownMenuItem("Home", href='/'),
                     dbc.DropdownMenuItem(divider=True),
                     dbc.DropdownMenuItem("Map", href='/map'),
-                    dbc.DropdownMenuItem("CSAT", href='/csat'),
-                    dbc.DropdownMenuItem("CR3000", href='/cr3000'),
+                    dbc.DropdownMenuItem("Ambient Temperature", href='/page_1'),
+                    dbc.DropdownMenuItem("Gases", href='/page_2'),
                 ],
             ),
         ],
