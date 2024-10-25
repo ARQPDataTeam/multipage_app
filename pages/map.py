@@ -11,23 +11,27 @@ from dash.dependencies import Input, Output
 from plotly.subplots import make_subplots
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
-import os
 from dotenv import load_dotenv 
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
+
+# local modules
+from postgres_query import fig_generator
 from credentials import sql_engine_string_generator
 
 print ('plotting map')
 
 # register this as a page in the app
 dash.register_page(__name__,    
-    requests_pathname_prefix="/webapp-SWAPIT/",
-    routes_pathname_prefix="/webapp-SWAPIT/"
+    requests_pathname_prefix="/app/SWAPIT/",
+    routes_pathname_prefix="/app/SWAPIT/"
 )
 
-# set the sql engine string
+# generate the sql connection string
 sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_DCP_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
+# set the sql engine string
 sql_engine=create_engine(sql_engine_string)
+conn = sql_engine.connect()
 
 
 # sql query

@@ -7,27 +7,19 @@ from dash.dependencies import Input, Output
 
 # local modules
 from postgres_query import fig_generator
+from credentials import sql_engine_string_generator
 
 # register this as a page in the app
 dash.register_page(__name__,
-    requests_pathname_prefix="/webapp-SWAPIT/",
-    routes_pathname_prefix="/webapp-SWAPIT/"
+    requests_pathname_prefix="/app/SWAPIT/",
+    routes_pathname_prefix="/app/SWAPIT/"
 )
 
-# set datetime parameters
-now=dt.today()
-start_date=(now-td(days=1)).strftime('%Y-%m-%d')
-end_date=now.strftime('%Y-%m-%d')
-
-csat_table='bor__csat_m_v0'
-pic_table='bor__g2311f_m_v0'
+# generate the sql connection string
+sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_BORDEN_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
 
 # set datetime parameters
-# csat_first_date=first_entry(csat_table,'DATAHUB_BORDEN_DBNAME')
-# pic_first_date=first_entry(pic_table,'DATAHUB_BORDEN_DBNAME')
-# first_date=(min(csat_first_date,pic_first_date)).strftime('%Y-%m-%d')
 first_date='2024-01-01'
-
 now=dt.today()
 start_date=(now-td(days=7)).strftime('%Y-%m-%d')
 end_date=now.strftime('%Y-%m-%d')
@@ -44,10 +36,10 @@ layout = html.Div(children=
                         display_format='YYYY-MM-DD'
                     ),
                     html.H2('Borden CR3000 Temperatures Display'),
-                    dcc.Graph(id='plot_3',figure=fig_generator(start_date,end_date,'plot_3','DATAHUB_BORDEN_DBNAME')),
+                    dcc.Graph(id='plot_3',figure=fig_generator(start_date,end_date,'plot_3',sql_engine_string)),
                     html.Br(),
                     html.H2(children=['Borden CSAT Temperatures Display']),
-                    dcc.Graph(id='plot_4',figure=fig_generator(start_date,end_date,'plot_4','DATAHUB_BORDEN_DBNAME'))
+                    dcc.Graph(id='plot_4',figure=fig_generator(start_date,end_date,'plot_4',sql_engine_string))
                     ] 
                     )
 
@@ -62,8 +54,8 @@ def update_output(start_date,end_date):
         raise PreventUpdate
     else:
         print ('Updating plot')
-        plot_3_fig=fig_generator(start_date,end_date,'plot_3','DATAHUB_BORDEN_DBNAME')
-        plot_4_fig=fig_generator(start_date,end_date,'plot_4','DATAHUB_BORDEN_DBNAME')
+        plot_3_fig=fig_generator(start_date,end_date,'plot_3',sql_engine_string)
+        plot_4_fig=fig_generator(start_date,end_date,'plot_4',sql_engine_string)
     return plot_3_fig,plot_4_fig
 
 # if __name__=='__main__':

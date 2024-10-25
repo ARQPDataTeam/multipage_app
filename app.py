@@ -3,12 +3,6 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 from navbar import create_navbar
 
-# local modules
-from credentials import sql_engine_string_generator
-from postgres_query import fig_generator
-from postgres_query import first_entry
-
-
 # Toggle the themes at [dbc.themes.LUX]
 # The full list of available themes is:
 # BOOTSTRAP, CERULEAN, COSMO, CYBORG, DARKLY, FLATLY, JOURNAL, LITERA, LUMEN,
@@ -31,8 +25,8 @@ app = dash.Dash(
     ],
     title=APP_TITLE,
     use_pages=True,  # New in Dash 2.7 - Allows us to register pages
-    requests_pathname_prefix="/webapp-SWAPIT/",
-    routes_pathname_prefix="/webapp-SWAPIT/"
+    requests_pathname_prefix="/app/SWAPIT/",
+    routes_pathname_prefix="/app/SWAPIT/"
 )
 
 
