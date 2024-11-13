@@ -1,6 +1,7 @@
 import dash
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+import dash_labs as dl
 from navbar import create_navbar
 
 # Toggle the themes at [dbc.themes.LUX]
@@ -11,13 +12,14 @@ from navbar import create_navbar
 # To see all themes in action visit:
 # https://dash-bootstrap-components.opensource.faculty.ai/docs/themes/explorer/
 
-NAVBAR = create_navbar()
 # To use Font Awesome Icons
 FA621 = "./all.css"
 APP_TITLE = "Multipage Dash App"
-(__name__, )
+# (__name__, )
+url_prefix = "/app/SWAPIT/"
 app = dash.Dash(
     __name__,
+    plugins=[dl.plugins.pages],
     suppress_callback_exceptions=True,
     external_stylesheets=[
         dbc.themes.LUX,  # Dash Themes CSS
@@ -25,8 +27,43 @@ app = dash.Dash(
     ],
     title=APP_TITLE,
     use_pages=True,  # New in Dash 2.7 - Allows us to register pages
-    requests_pathname_prefix="/app/SWAPIT/",
-    routes_pathname_prefix="/app/SWAPIT/"
+    # requests_pathname_prefix="/app/SWAPIT/",
+    # routes_pathname_prefix="/app/SWAPIT/",
+    url_base_pathname=url_prefix
+)
+
+navbar = dbc.NavbarSimple(
+    children=[
+        dbc.NavItem(
+            dbc.NavLink("Map", active=True, href="/app/SWAPIT/pages/map", target="_blank")
+            ),
+
+        dbc.NavItem(
+            dbc.NavLink("Ambient Temperature", active=True, href="/app/SWAPIT/pages/page_1", target="_blank")
+            ),
+
+        dbc.NavItem(
+            dbc.NavLink("Gases", active=True, href="/app/SWAPIT/pages/page_2", target="_blank")
+            ),
+
+        dbc.DropdownMenu(
+            [
+                dbc.DropdownMenuItem(page["name"], href=url_prefix+page["path"])
+                for page in dash.page_registry.values()
+                if page["module"] != "pages.not_found_404"
+            ],
+            nav=True,
+            in_navbar=True,
+            label="Menu",
+            align_end=True,
+            ),
+        ),
+    brand='Home',
+    brand_href="/app/SWAPIT/",
+    # sticky="top",  # Uncomment if you want the navbar to always appear at the top on scroll.
+    color="dark",  # Change this to change color of the navbar e.g. "primary", "secondary" etc.
+    dark=True,  # Change this to change color of text within the navbar (False for dark text)
+    ]
 )
 
 
@@ -35,8 +72,7 @@ app.layout = dcc.Loading(  # <- Wrap App with Loading Component
     children=[
         html.Div(
             [
-                NAVBAR,
-                dash.page_container
+                navbar,dl.plugins.page_container
             ]
         )
     ],

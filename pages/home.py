@@ -11,7 +11,6 @@ register_page(
 
 )
 
-
 def layout():
     layout = html.Div([
         html.H1(
