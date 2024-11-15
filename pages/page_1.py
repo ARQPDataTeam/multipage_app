@@ -10,12 +10,7 @@ from postgres_query import fig_generator
 from credentials import sql_engine_string_generator
 
 # register this as a page in the app
-dash.register_page(__name__,
-    requests_pathname_prefix="/app/SWAPIT/",
-    routes_pathname_prefix="/app/SWAPIT/"
-)
-print ('page 1')
-print (__name__)
+dash.register_page(__name__)
 # generate the sql connection string
 sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_BORDEN_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
 

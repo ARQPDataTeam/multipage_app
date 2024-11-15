@@ -6,8 +6,6 @@ register_page(
     name='Home',
     top_nav=True,
     path='/',
-    requests_pathname_prefix="/webapp-SWAPIT/",
-    routes_pathname_prefix="/webapp-SWAPIT/"
 
 )
 
@@ -18,7 +16,7 @@ def layout():
                 "Home Page"
             ]
             ),
-        html.Div(html.H4("""Welcome to the Data Team SWAPIT 
+        html.Div(html.H4("""Welcome to the Borden
                             test data display dashboard home page.  
                             Below are the available data sets 
                             that can be visualized by following
@@ -26,8 +24,9 @@ def layout():
                         )
                 ),
         html.Div(className='gap',style={'height':'10px'}),
+        html.Img(src='assets/skyline.jpg', alt='View from top of tower'),
         html.Div([
-            html.Div(children="""CRUISER CSAT wind and virtual temperature data""",className="box1",
+            html.Div(children="""CR3000 temperature data""",className="box1",
                         style={
                         'backgroundColor':'aqua',
                         'color':'black',
@@ -38,11 +37,11 @@ def layout():
                         'display':'inline-block'
                         }
                     ),
-            html.Img(src='assets/csat.png', alt='CSAT Plot Capture'),
+            html.Img(src='assets/CR3000_temperature.jpg', alt='CR3000 Plot Capture'),
                 ]),
         html.Div(className='gap',style={'height':'10px'}),
         html.Div([
-            html.Div(children="""CRUISER G2401 (Picarro) trace gas data""",className="box1",
+            html.Div(children="""Borden Picarro trace gas data""",className="box1",
                         style={
                         'backgroundColor':'aqua',
                         'color':'black',
@@ -53,7 +52,7 @@ def layout():
                         'display':'inline-block'
                         }
                     ),
-            html.Img(src='assets/g2401.png', alt='Picarro Plot Capture'),
+            html.Img(src='assets/borden_gases.jpg', alt='Picarro Plot Capture' ),
                 ]),
             ])
     return layout

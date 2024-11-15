@@ -10,12 +10,7 @@ from postgres_query import fig_generator
 from credentials import sql_engine_string_generator
 
 # register this as a page in the app
-dash.register_page(__name__,
-    requests_pathname_prefix="/app/SWAPIT/",
-    routes_pathname_prefix="/app/SWAPIT/"
-)
-print ('page 2')
-print (__name__)
+dash.register_page(__name__)
 # generate the sql connection string
 sql_engine_string=sql_engine_string_generator('DATAHUB_PSQL_SERVER','DATAHUB_BORDEN_DBNAME','DATAHUB_PSQL_USER','DATAHUB_PSQL_PASSWORD')
 
@@ -36,10 +31,10 @@ layout = html.Div(children=
                         max_date_allowed=end_date,
                         display_format='YYYY-MM-DD'
                     ),
-                    html.H2('Borden CR3000 Temperatures Display'),
+                    html.H2('Borden Gases Display'),
                     dcc.Graph(id='plot_3',figure=fig_generator(start_date,end_date,'plot_3',sql_engine_string)),
                     html.Br(),
-                    html.H2(children=['Borden CSAT Temperatures Display']),
+                    html.H2(children=['Borden Water Vapour Display']),
                     dcc.Graph(id='plot_4',figure=fig_generator(start_date,end_date,'plot_4',sql_engine_string))
                     ] 
                     )
