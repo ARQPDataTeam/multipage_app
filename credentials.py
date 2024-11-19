@@ -28,7 +28,8 @@ def sql_engine_string_generator(datahub_host, datahub_db, datahub_user, datahub_
         # print(f"An error occurred: {e}")
 
         # load the .env file using the dotenv module remove this when running a powershell script to confirue system environment vars
-        load_dotenv() # default is relative local directory 
+        parent_dir=os.path.dirname(os.getcwd())
+        load_dotenv(os.path.join(parent_dir, '.env')) # default is relative local directory 
         env_path='.env'
         DB_HOST = os.getenv(datahub_host)
         DB_NAME = os.getenv(datahub_db)
@@ -38,12 +39,5 @@ def sql_engine_string_generator(datahub_host, datahub_db, datahub_user, datahub_
 
     # set the sql engine string
     sql_engine_string=('postgresql://{}:{}@{}/{}?sslmode=require').format(DB_USER,DB_PASS,DB_HOST,DB_NAME)
-    print ('sql engine string: ',sql_engine_string)
     return sql_engine_string
 
-
-
-
-
-if __name__=='__main__':
-    app.run(debug=True)
