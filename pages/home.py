@@ -52,7 +52,7 @@ def layout():
                         'display':'inline-block'
                         }
                     ),
-            html.Img(src='assets/borden_gases.jpg', alt='Picarro Plot Capture' ),
+            html.Img(src='assets/Borden_gases.jpg', alt='Picarro Plot Capture' ),
                 ]),
             ])
     return layout
